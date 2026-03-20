@@ -1,4 +1,4 @@
-package com.learninglog.learninlog;
+package com.learninglog.learninglogproject;
 
 import java.io.*;
 
