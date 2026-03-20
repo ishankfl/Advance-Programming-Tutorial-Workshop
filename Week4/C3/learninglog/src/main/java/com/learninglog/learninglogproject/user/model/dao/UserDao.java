@@ -9,32 +9,51 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserDao implements UserDaoInterface{
+// DAO class responsible for database operations related to User
+public class UserDao implements UserDaoInterface {
+
+    // Method to insert a new user into database
     @Override
     public boolean insertUser(User user) throws SQLException, IOException {
+
+        // SQL query with placeholders (PreparedStatement prevents SQL Injection)
         String query = "INSERT INTO user (name, email, password) VALUES(?,?,?)";
-        try (Connection conn = DbConnection.getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(query)
+
+        // Try-with-resources (automatically closes connection and statement)
+        try (
+                // Get database connection
+                Connection conn = DbConnection.getConnection();
+
+                // Prepare SQL statement
+                PreparedStatement preparedStatement = conn.prepareStatement(query)
         ){
+
+            // Get values from User object
             String name = user.getName();
             String email = user.getEmail();
-            String  password = user.getPassword();
+            String password = user.getPassword();
 
+            // Set values into query
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, email);
             preparedStatement.setString(3, password);
 
+            // Execute insert query
             int insertedRow = preparedStatement.executeUpdate();
+
+            // Check if row is inserted successfully
             if(insertedRow > 0)
             {
-                return  true;
+                return true;   // success
             }
             else {
-                return false;
+                return false;  // failure
             }
         }
     }
-//    public List<User> fetchUser(){
-//
-//    }
+
+    // Future method to fetch users (currently commented)
+    // public List<User> fetchUser(){
+    //
+    // }
 }
