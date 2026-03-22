@@ -17,20 +17,16 @@
 <!-- Page Heading -->
 Register Page
 
-<%
-    // Retrieve the error message from the request (set by servlet)
-    String error = (String) request.getAttribute("error");
 
-    // If no error message, initialize as empty string to avoid displaying "null"
-    if(error == null ){
-        error = "";
+<%
+    String errorMessage =(String) request.getAttribute("error");
+    if(errorMessage==null){
+        errorMessage="";
     }
 %>
-
-<!-- Display error message in red -->
-<p class="col-first" style="color: red">
-    <%= error %>
-</p>
+<%=
+    errorMessage
+%>
 
 <!-- Registration Form -->
 <form method="post" action="register">

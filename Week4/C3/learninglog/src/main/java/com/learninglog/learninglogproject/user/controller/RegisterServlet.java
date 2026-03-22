@@ -46,12 +46,15 @@ public class RegisterServlet extends HttpServlet {
                 req.setAttribute("error", "Please fill the all fields");
 
                 // Print message in console (for debugging)
-                System.out.println("Please fill this all fields");
+//                System.out.println("Please fill this all fields");
 
                 // Forward back to form page
                 requestDispatcher.forward(req, resp);
             }
-
+            if(password.length() < 6){
+                req.setAttribute("error","Password must be greater than 6 characters");
+                requestDispatcher.forward(req, resp);
+            }
             // Create User object
             User userObj = new User();
 
@@ -70,7 +73,7 @@ public class RegisterServlet extends HttpServlet {
             if (result) {
                 // Success message
                 req.setAttribute("success", "Successfully User Added");
-            } else {
+            } else {// if(false)
                 // Error message if insertion fails
                 req.setAttribute("error", "Something went wrong");
             }

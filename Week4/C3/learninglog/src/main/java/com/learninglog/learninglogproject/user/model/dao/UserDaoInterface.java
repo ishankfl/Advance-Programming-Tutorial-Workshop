@@ -16,5 +16,5 @@ public interface UserDaoInterface {
     public boolean insertUser(User user) throws SQLException, IOException;
 
     // Future method to fetch list of users (currently commented)
-    // public List<User> fetchUser();
+//     public List<User> fetchUser();
 }

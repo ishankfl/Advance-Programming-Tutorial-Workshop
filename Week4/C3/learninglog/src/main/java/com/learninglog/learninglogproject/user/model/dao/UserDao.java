@@ -6,6 +6,7 @@ import com.learninglog.learninglogproject.utils.DbConnection;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class UserDao implements UserDaoInterface {
             preparedStatement.setString(3, password);
 
             // Execute insert query
-            int insertedRow = preparedStatement.executeUpdate();
+            int insertedRow = preparedStatement.executeUpdate(); // insertedRow = 1
 
             // Check if row is inserted successfully
             if(insertedRow > 0)
@@ -50,10 +51,27 @@ public class UserDao implements UserDaoInterface {
                 return false;  // failure
             }
         }
+
+        }
     }
 
-    // Future method to fetch users (currently commented)
-    // public List<User> fetchUser(){
-    //
-    // }
+    public boolean checkEmailAndPassword(String email, String password) throws SQLException {
+    String query = "SELECT id FROM user WHERE email = ? AND password = ?";
+    try(Connection conn= DbConnection.getConnection();
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+    ){
+        preparedStatement.setString(1, email);
+        preparedStatement.setString(2, password);
+
+        ResultSet rs = preparedStatement.executeQuery();
+        if(rs.next()){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+    return false;
+}
+
 }
