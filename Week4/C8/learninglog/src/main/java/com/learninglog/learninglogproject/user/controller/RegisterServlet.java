@@ -1,6 +1,8 @@
 package com.learninglog.learninglogproject.user.controller;
 
 // Import necessary servlet classes
+import com.learninglog.learninglogproject.user.model.User;
+import com.learninglog.learninglogproject.user.model.dao.UserDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,4 +28,38 @@ public class RegisterServlet extends HttpServlet {
         // This means the URL stays the same but content is loaded from JSP
         rd.forward(req, resp);
     }
+
+    @Override
+    protected  void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        String name = req.getParameter("name");
+        String  email = req.getParameter("email");
+        String password = req.getParameter("password");
+
+        if(name.isEmpty() || email.isEmpty() || password.isEmpty()){
+            req.setAttribute("error","Please fill the all fields");
+            req.getRequestDispatcher("pages/register.jsp").forward(req,resp);
+        }
+
+        User userObj = new User();
+        userObj.setName(name);
+        userObj.setEmail(email);
+        userObj.setPassword(password);
+
+        UserDao dao = new UserDao();
+
+        try{
+            boolean result = dao.insertUser(userObj);
+            if(result == true){
+                resp.sendRedirect("login");
+            }else{
+                req.setAttribute("error","Unable to register a user");
+                req.getRequestDispatcher("pages/register.jsp").forward(req, resp);
+            }
+        }catch (Exception e){
+            req.setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("pages/register.jsp").forward(req, resp);
+
+        }
+    }
+
 }

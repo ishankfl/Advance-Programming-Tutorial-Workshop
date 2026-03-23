@@ -11,6 +11,12 @@
 </head>
 <body>
 
+<%
+    String errorMsg = (String) request.getAttribute("error");
+%>
+<%=
+    errorMsg
+%>
 <!-- Form starts here -->
 <!-- action="/register" → matches your servlet URL -->
 <!-- method="post" → used to send data securely -->
@@ -20,19 +26,19 @@
     <div class="input-fields">
         <label>Full Name</label>
         <!-- name attribute is REQUIRED to get value in servlet -->
-        <input type="text" name="name" placeholder="Enter your name" required>
+        <input type="text" name="name" placeholder="Enter your name" >
     </div>
 
     <!-- Email Field -->
     <div class="input-fields">
         <label>Email</label>
-        <input type="email" name="email" placeholder="Enter your email" required>
+        <input type="email" name="email" placeholder="Enter your email" >
     </div>
 
     <!-- Password Field -->
     <div class="input-fields">
         <label>Password</label>
-        <input type="password" name="password" placeholder="Enter password" required>
+        <input type="password" name="password" placeholder="Enter password" >
     </div>
 
     <!-- Submit Button -->
