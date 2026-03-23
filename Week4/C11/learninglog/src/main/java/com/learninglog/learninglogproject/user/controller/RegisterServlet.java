@@ -1,5 +1,7 @@
 package com.learninglog.learninglogproject.user.controller;
 
+import com.learninglog.learninglogproject.user.model.User;
+import com.learninglog.learninglogproject.user.model.dao.UserDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -44,5 +46,27 @@ public class RegisterServlet extends HttpServlet {
             // Forward back to register page with error message
             rd.forward(req, resp);
         }
+        UserDao dao = new UserDao();
+        User userObj = new User();
+        userObj.setName(name);
+        userObj.setEmail(email);
+        userObj.setPassword(password);
+
+//        userObj.getName()
+        try{
+            boolean isInserted = dao.insertUser(userObj);
+            if(isInserted==true){
+                req.getRequestDispatcher("pages/login.jsp").forward(req,resp);
+            }
+            else{
+                req.setAttribute("error","Something went wrong!");
+                req.getRequestDispatcher("pages/register").forward(req,resp);
+
+            }
+        }catch (Exception e){
+            req.setAttribute("error",e.getMessage());
+            req.getRequestDispatcher("pages/register.jsp").forward(req,resp);
+        }
+
     }
 }
