@@ -1,5 +1,7 @@
 package com.learninglog.learninglogproject.user.controller;
 
+import com.learninglog.learninglogproject.user.model.dao.UserDao;
+import com.learninglog.learninglogproject.user.model.dao.UserDaoInterface;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -49,5 +51,31 @@ public class RegisterServlet extends HttpServlet {
             // Forward back to register page with error message
             requestDispatcher.forward(req, resp);
         }
+        if(password.length() < 6){
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("pages/register.jsp");
+
+            req.setAttribute("error","Minimum lenght for password is 6");
+            requestDispatcher.forward(req, resp);
+        }
+        UserDaoInterface userDao = new UserDao();
+
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("pages/register.jsp");
+
+        try{
+            boolean isInserted = userDao.insertUser(name,email,password);
+            if(isInserted == true){
+                req.setAttribute("success","User registered successfully");
+                requestDispatcher.forward(req, resp);
+            }
+            else{
+                req.setAttribute("error","Something went wrong");
+                requestDispatcher.forward(req,resp);
+            }
+        }catch (Exception e){
+            req.setAttribute("error",e.getMessage());
+            requestDispatcher.forward(req,resp);
+        }
+
+
     }
 }
