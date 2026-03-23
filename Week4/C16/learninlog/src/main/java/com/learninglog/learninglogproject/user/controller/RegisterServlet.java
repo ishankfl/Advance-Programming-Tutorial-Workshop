@@ -1,5 +1,7 @@
 package com.learninglog.learninglogproject.user.controller;
 
+import com.learninglog.learninglogproject.user.model.User;
+import com.learninglog.learninglogproject.user.model.dao.UserDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -44,6 +46,22 @@ public class RegisterServlet extends HttpServlet {
             // Forward back to register page with the error message
             requestDispatcher.forward(req, resp);
         }
+        try{
+            UserDao userDao = new UserDao();
+            boolean userInserted = userDao.insertUser(fullName, email, password);
+            if(userInserted==true){
+                req.getRequestDispatcher("pages/login.jsp").forward(req,resp);
+            }else{
+                req.setAttribute("error","Something went wrong! Please try again");
+                req.getRequestDispatcher("pages/register.jsp").forward(req,resp);
+            }
+        }
+        catch (Exception e){
+            req.setAttribute("error",e.getMessage());
+            req.getRequestDispatcher("pages/register.jsp").forward(req, resp);
+        }
+
+
 
         // If fields are not empty, further processing can be done here (e.g., saving user to DB)
     }
