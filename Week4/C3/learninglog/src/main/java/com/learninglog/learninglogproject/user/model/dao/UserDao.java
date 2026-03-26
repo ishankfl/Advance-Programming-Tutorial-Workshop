@@ -2,6 +2,7 @@ package com.learninglog.learninglogproject.user.model.dao;
 
 import com.learninglog.learninglogproject.user.model.User;
 import com.learninglog.learninglogproject.utils.DbConnection;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -54,23 +55,27 @@ public class UserDao implements UserDaoInterface {
 
         }
 
+        public User loginUser(String email, String  password)
+        throws  SQLException{
 
-    public boolean checkEmailAndPassword(String email, String password) throws SQLException {
-    String query = "SELECT id FROM user WHERE email = ? AND password = ?";
-    try(Connection conn= DbConnection.getConnection();
-        PreparedStatement preparedStatement = conn.prepareStatement(query);
-    ){
-        preparedStatement.setString(1, email);
-        preparedStatement.setString(2, password);
+            String query = "SELECT * FROM user WHERE email = ?";
+            try(Connection conn = DbConnection.getConnection();
+                PreparedStatement st = conn.prepareStatement(query)
+            ){
+                st.setString(1, email);
+                ResultSet rs = st.executeQuery();
+                if(rs.next()){
+                   String storedHashedPassword = rs.getString("password");
+                   if(BCrypt.checkpw(password,storedHashedPassword)){
+                       int id = rs.getInt("id");
+                       String name = rs.getString("name");
+                       User userObj = new User(id, name, email, storedHashedPassword);
+                       return  userObj;
 
-        ResultSet rs = preparedStatement.executeQuery();
-        if(rs.next()){
-            return true;
-        }else {
-            return false;
+                   }
+                }
+                return null;
+            }
         }
-
-    }
-}
 
 }

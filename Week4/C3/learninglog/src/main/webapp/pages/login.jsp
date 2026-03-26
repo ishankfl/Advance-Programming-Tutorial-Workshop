@@ -27,5 +27,6 @@
         <input type="text" name="password">
         <button>Login</button>
     </form>
+<a href="register">Dont have any account? Register here </a>
 </body>
 </html>
