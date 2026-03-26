@@ -22,9 +22,16 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp){
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    throws ServletException,IOException
+    {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+
+        if(email.isEmpty() || password.isEmpty()){
+            req.setAttribute("error","Please fill the all fields");
+            req.getRequestDispatcher("pages/login.jsp").forward(req,resp);
+        }
 
     }
 }

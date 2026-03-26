@@ -53,7 +53,7 @@ public class UserDao implements UserDaoInterface {
         }
 
         }
-    }
+
 
     public boolean checkEmailAndPassword(String email, String password) throws SQLException {
     String query = "SELECT id FROM user WHERE email = ? AND password = ?";
@@ -71,7 +71,6 @@ public class UserDao implements UserDaoInterface {
         }
 
     }
-    return false;
 }
 
 }
