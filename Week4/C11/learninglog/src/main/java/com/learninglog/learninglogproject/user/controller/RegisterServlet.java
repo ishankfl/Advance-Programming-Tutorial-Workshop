@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -50,7 +51,9 @@ public class RegisterServlet extends HttpServlet {
         User userObj = new User();
         userObj.setName(name);
         userObj.setEmail(email);
-        userObj.setPassword(password);
+
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        userObj.setPassword(hashedPassword);
 
 //        userObj.getName()
         try{
