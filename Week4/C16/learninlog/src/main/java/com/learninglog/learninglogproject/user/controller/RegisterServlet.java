@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -46,9 +47,14 @@ public class RegisterServlet extends HttpServlet {
             // Forward back to register page with the error message
             requestDispatcher.forward(req, resp);
         }
+
+        String hashedPassword = BCrypt.hashpw(password,BCrypt.gensalt());
+
+
         try{
             UserDao userDao = new UserDao();
-            boolean userInserted = userDao.insertUser(fullName, email, password);
+            boolean userInserted = userDao.insertUser(fullName, email, hashedPassword);
+
             if(userInserted==true){
                 req.getRequestDispatcher("pages/login.jsp").forward(req,resp);
             }else{
