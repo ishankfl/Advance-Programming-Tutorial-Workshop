@@ -13,9 +13,9 @@
 <body>
 <form action="login" method="post">
     <label>Email</label>
-    <input type="text" name="">
+    <input type="text" name="email">
     <label>Password</label>
-    <input type="text" name="">
+    <input type="text" name="password">
     <button>Submit</button>
 </form>
 </body>
