@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -60,9 +61,10 @@ public class RegisterServlet extends HttpServlet {
         UserDaoInterface userDao = new UserDao();
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("pages/register.jsp");
-
+        String  hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt())
+;
         try{
-            boolean isInserted = userDao.insertUser(name,email,password);
+            boolean isInserted = userDao.insertUser(name,email,hashedPassword);
             if(isInserted == true){
                 req.setAttribute("success","User registered successfully");
                 requestDispatcher.forward(req, resp);

@@ -10,6 +10,19 @@
 <head>
 </head>
 <body>
+<%
+    String errorMsg = (String) request.getAttribute("error");
+%>
 
+<%=
+    errorMsg
+%>
+<form action="login" method="post">
+    <label>Email</label>
+    <input type="text" name="email">
+    <label>Password</label>
+    <input type="text" name="password">
+    <button>Login</button>
+</form>
 </body>
 </html>
