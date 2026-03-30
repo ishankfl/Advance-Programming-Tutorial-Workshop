@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
 
 @WebServlet("/login")
@@ -22,10 +21,10 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
     throws  ServletException, IOException{
-        String email=req.getParameter("email");
+        String email= req.getParameter("email");
         String  password = req.getParameter("password");
 
-        System.out.println("In doPostMethod After Form Submission\n "+email+" "+password);
+//        System.out.println("In doPostMethod After Form Submission\n "+email+" "+password);
         try{
             UserDao userDao = new UserDao();
             User userObj = userDao.loginUser(email, password);
@@ -35,7 +34,7 @@ public class LoginServlet extends HttpServlet {
             }
             else{
                 HttpSession session = req.getSession();
-                session.setAttribute("user",userDao);
+                session.setAttribute("user",userObj);
                 resp.sendRedirect("dashboard");
             }
         } catch (Exception e){}
