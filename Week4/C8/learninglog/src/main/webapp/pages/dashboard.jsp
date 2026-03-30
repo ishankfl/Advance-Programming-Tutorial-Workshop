@@ -15,8 +15,9 @@
         User user =(User) session.getAttribute("user");
     %>
     <h1>
+        Name: <%=user.getName()%>
         <br>
-        <%= user.getId() %>
+        Id: <%= user.getId() %>
     </h1>
 </body>
 
