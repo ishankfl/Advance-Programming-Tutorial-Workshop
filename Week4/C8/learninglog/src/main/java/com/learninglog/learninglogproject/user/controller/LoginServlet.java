@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -18,6 +19,7 @@ public class LoginServlet extends HttpServlet {
     {
         req.getRequestDispatcher("pages/login.jsp").forward(req,resp);
     }
+
     @Override
     protected  void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -33,7 +35,9 @@ public class LoginServlet extends HttpServlet {
                 req.getRequestDispatcher("pages/login.jsp").forward(req,resp);
 
             }else{
-
+                HttpSession session= req.getSession();
+                session.setAttribute("user", userObj);
+                resp.sendRedirect("dashboard");
             }
         }
         catch (Exception e){
