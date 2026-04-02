@@ -16,6 +16,7 @@ public interface UserDaoInterface {
     public boolean insertUser(User user) throws SQLException, IOException;
     public User loginUser(String email, String  password)
             throws  SQLException;
+    public List<User> userList() throws  SQLException;
     // Future method to fetch list of users (currently commented)
 //     public List<User> fetchUser();
 }

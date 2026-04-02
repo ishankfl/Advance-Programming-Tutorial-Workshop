@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 // DAO class responsible for database operations related to User
@@ -77,5 +78,28 @@ public class UserDao implements UserDaoInterface {
                 return null;
             }
         }
+
+    @Override
+    public List<User> userList() throws  SQLException{
+        List<User> users = new ArrayList<>();
+        String query = "SELECT * FROM user";
+
+        try (Connection conn = DbConnection.getConnection();
+             PreparedStatement st = conn.prepareStatement(query);
+             ResultSet rs = st.executeQuery()) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+
+                User user = new User(id, name, email, password);
+                users.add(user);
+            }
+
+        }
+        return users;
+    }
 
 }

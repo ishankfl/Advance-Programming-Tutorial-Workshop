@@ -1,32 +1,27 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Dell
-  Date: 3/22/2026
-  Time: 11:39 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Login Page</title>
 </head>
 <body>
-<%
-    String errorMsg = (String) request.getAttribute("error");
-    if(errorMsg==null){
-        errorMsg="";
-    }
-%>
-<%=
-    errorMsg
-%>
-    <form method="post" action="login">
-        <label>Email: </label>
-        <input type="text" name="email">
-        <label>Password</label>
-        <input type="text" name="password">
-        <button>Login</button>
-    </form>
-<a href="register">Dont have any account? Register here </a>
+
+<!-- Display error message if exists -->
+<c:if test="${not empty error}">
+    <p style="color:red">${error}</p>
+</c:if>
+
+<form method="post" action="login">
+    <label>Email: </label>
+    <input type="text" name="email" value="${param.email}" required/>
+
+    <label>Password: </label>
+    <input type="password" name="password" required/>
+
+    <button type="submit">Login</button>
+</form>
+
+<a href="register">Don't have any account? Register here</a>
+
 </body>
 </html>
