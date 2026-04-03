@@ -26,6 +26,7 @@ public class TopicServlet extends HttpServlet {
 
             String topicName = req.getParameter("topic-name");
             int userId = Integer.parseInt(req.getParameter("user-id"));
+            System.out.println(req.getParameter("user-id"));
             Timestamp createdDate = new Timestamp(System.currentTimeMillis());
 
             try{
