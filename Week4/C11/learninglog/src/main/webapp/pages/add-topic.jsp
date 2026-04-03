@@ -20,10 +20,10 @@
 %>
     <form method="post" action="topic">
 
-        <input type="text" value="add" name="action">
+        <input type="hidden" value="add" name="action">
         <br>
         <label>UserId</label>
-        <input type="text" value="<%=id%>" name="user-id">
+        <input type="text" value="<%=id%>" name="user-id" disabled>
         <br>
         <label>Topic Name</label>
         <input type="text" name="topic-name">
