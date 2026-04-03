@@ -21,6 +21,8 @@
 %>
 <body>
     <form method="post" action="topic">
+        <input type="hidden" value="add" name="action">
+
         <label>UserId</label>:
         <input type="text" value="<%=id%>" name="user-id">
         <br>
