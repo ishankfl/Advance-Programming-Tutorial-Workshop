@@ -1,5 +1,6 @@
 package com.learninglog.learninglogproject.user.controller;
 
+import com.learninglog.learninglogproject.user.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,6 +15,7 @@ public class DashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req,
             HttpServletResponse resp
     ) throws ServletException, IOException {
+
         req.getRequestDispatcher("pages/dashboard.jsp").forward(req,resp);
     }
 }
