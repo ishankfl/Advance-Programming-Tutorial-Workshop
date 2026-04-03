@@ -12,7 +12,10 @@
 </head>
 <%
     User userObj = (User) session.getAttribute("user");
-    int userId = userObj.getId();
+    if(userObj != null){    int userId = userObj.getId();}
+    else {
+        int userId = 0;
+    }
 %>
 <body>
     <form method="post" action="topic">

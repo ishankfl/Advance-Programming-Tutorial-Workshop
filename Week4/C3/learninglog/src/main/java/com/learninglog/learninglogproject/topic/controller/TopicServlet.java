@@ -23,6 +23,9 @@ public class TopicServlet extends HttpServlet {
             String topicName = req.getParameter("topic-name");
             int userId = Integer.parseInt(req.getParameter("userId"));
 
+            // Call the topic dao
+
+
         }
     }
 }
