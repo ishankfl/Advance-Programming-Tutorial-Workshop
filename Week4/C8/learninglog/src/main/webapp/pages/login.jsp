@@ -11,6 +11,13 @@
     <title>Title</title>
 </head>
 <body>
+<%
+    String errorMsg = (String) request.getAttribute("error");
+    if(errorMsg==null){
+        errorMsg="";
+    }
+%>
+<p style="color: red"><%= errorMsg %></p>
 <form action="login" method="post">
     <label>Email</label>
     <input type="text" name="email">

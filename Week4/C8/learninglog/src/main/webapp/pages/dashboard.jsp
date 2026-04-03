@@ -19,6 +19,7 @@
         <br>
         Id: <%= user.getId() %>
     </h1>
+<a href="topic">Add Topic</a>
 </body>
 
 </html>
