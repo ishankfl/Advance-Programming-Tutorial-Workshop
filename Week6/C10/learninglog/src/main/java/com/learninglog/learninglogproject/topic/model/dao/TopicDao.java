@@ -5,7 +5,9 @@ import com.learninglog.learninglogproject.utils.DbConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class TopicDao {
     public boolean insertTopic(Topic obj)
@@ -28,8 +30,16 @@ public class TopicDao {
             }else {
                 return true;
             }
+        }
+    }
 
-
+    public List<Topic> fetchTopics() throws SQLException
+    {
+        String query="SELECT * FROM topic";
+        try(Connection conn = DbConnection.getConnection();
+        PreparedStatement st = conn.prepareStatement(query)
+        ){
+            ResultSet rs = st.executeQuery();
         }
     }
 }

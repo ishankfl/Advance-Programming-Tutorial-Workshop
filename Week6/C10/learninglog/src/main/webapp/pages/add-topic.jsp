@@ -18,6 +18,15 @@
         id = userObj.getId();
     }
 %>
+<%
+    String errorMsg =(String) request.getAttribute("error");
+    if(errorMsg==null){ errorMsg="";}
+    String successMsg = (String) request.getAttribute("success");
+    if(successMsg==null){successMsg="";}
+%>
+<p style="color:red;"><%= errorMsg %></p>
+<p style="color:green;"><%= successMsg %></p>
+
 <form method="post" action="topic">
 
     <label>Action : </label>

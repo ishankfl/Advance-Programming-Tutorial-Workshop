@@ -17,6 +17,12 @@ public class TopicServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws
             ServletException, IOException {
+        String page = req.getParameter("page");
+
+        if(page.equals("list")){
+            
+            req.getRequestDispatcher("pages/topic-list.jsp").forward(req,resp);
+        }
         req.getRequestDispatcher("pages/add-topic.jsp").forward(req,resp);
     }
 
@@ -40,9 +46,16 @@ public class TopicServlet extends HttpServlet {
             obj.setUpdatedAt(updatedDate);
             try {
                 boolean result = dao.insertTopic(obj);
+                if(result){
+                    req.setAttribute("sucess","Successfully topic added");
+                }
+                else{
+                    req.setAttribute("error","Unable to add topic");
+                }
             }catch (Exception e){
-
+                req.setAttribute("error",e.getMessage());
             }
+            req.getRequestDispatcher("pages/add-topic.jsp").forward(req,resp);
         }
     }
 }
