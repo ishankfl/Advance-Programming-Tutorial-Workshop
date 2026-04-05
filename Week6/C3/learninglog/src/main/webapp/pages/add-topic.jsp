@@ -12,10 +12,8 @@
 </head>
 <%
     User userObj = (User) session.getAttribute("user");
-    if(userObj != null){    int userId = userObj.getId();}
-    else {
-        int userId = 0;
-    }
+    int userId=0;
+    if(userObj != null){     userId= userObj.getId();}
 %>
 <body>
     <form method="post" action="topic">

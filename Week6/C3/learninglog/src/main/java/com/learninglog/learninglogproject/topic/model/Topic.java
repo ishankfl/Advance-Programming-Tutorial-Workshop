@@ -4,16 +4,16 @@ import java.sql.Timestamp;
 
 public class Topic {
     private int id;
-    private String namel;
+    private String name;
     private int userId;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
     public Topic(){}
 
-    public Topic(int id, String namel, int userId, Timestamp createdAt, Timestamp updatedAt) {
+    public Topic(int id, String name, int userId, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
-        this.namel = namel;
+        this.name = name;
         this.userId = userId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -28,12 +28,12 @@ public class Topic {
         this.id = id;
     }
 
-    public String getNamel() {
-        return namel;
+    public String getname() {
+        return name;
     }
 
-    public void setNamel(String namel) {
-        this.namel = namel;
+    public void setname(String name) {
+        this.name = name;
     }
 
     public int getUserId() {
