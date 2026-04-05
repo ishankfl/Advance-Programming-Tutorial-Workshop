@@ -41,6 +41,7 @@ public class TopicDao {
             PreparedStatement st = conn.prepareStatement(query)
         ){
             ResultSet rs = st.executeQuery();
+
             List<Topic> topicList = new ArrayList<>();
             while (rs.next()){
                 int id = rs.getInt(1);
@@ -52,6 +53,7 @@ public class TopicDao {
                 Topic topicObj = new Topic(id,name, userId, crDate, upDate);
                 topicList.add(topicObj);
             }
+            return topicList;
         }
     }
 }
