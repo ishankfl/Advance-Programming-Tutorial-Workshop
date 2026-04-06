@@ -1,5 +1,6 @@
 package com.learninglog.learninglogproject.topic.controller;
 
+import com.learninglog.learninglogproject.topic.model.Topic;
 import com.learninglog.learninglogproject.topic.model.dao.TopicDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,12 +11,23 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.List;
 
 @WebServlet("/topic")
 public class TopicServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        super.doGet(req, resp);
+        String page= req.getParameter("page");
+
+        if("list".equals(page)){
+            try{
+                List<Topic> topicList = TopicDao.fetchTopics();
+                req.setAttribute("topics", topicList);
+            }catch (Exception e){
+                req.setAttribute("success","Something went wrong "+e.getMessage());
+            }
+            req.getRequestDispatcher("pages/topic-list.jsp").forward(req,resp);
+        }
         req.getRequestDispatcher("pages/add-topic.jsp")
                 .forward(req,resp);
     }
