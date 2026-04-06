@@ -11,11 +11,28 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.List;
 
 @WebServlet("/topic")
 public class TopicServlet extends HttpServlet {
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        String action = req.getParameter("page");
+
+        if("list".equals(action)){
+            try{
+                List<Topic> topicList = TopicDao.fetchTopics();
+                req.setAttribute("topics", topicList);
+
+            }
+            catch (Exception e){
+                req.setAttribute("error","Unable to fetch the topics "+e.getMessage());
+            }
+            req.getRequestDispatcher("pages/topic-list.jsp").forward(req,resp);
+        }
+
         req.getRequestDispatcher("pages/add-topic.jsp")
                 .forward(req,resp);
     }
