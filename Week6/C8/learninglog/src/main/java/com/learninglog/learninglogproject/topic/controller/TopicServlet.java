@@ -1,5 +1,6 @@
 package com.learninglog.learninglogproject.topic.controller;
 
+import com.learninglog.learninglogproject.topic.model.Topic;
 import com.learninglog.learninglogproject.topic.model.dao.TopicDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,12 +10,28 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.List;
 
 @WebServlet("/topic")
 public class TopicServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        String page = req.getParameter("page"); // ?page=list
+        if("list".equals(page)){
+            //fetch data from topicDao
+            try {
+                List<Topic> topicList = TopicDao.fetchTopics();
+                req.setAttribute("topics", topicList);
+
+            }catch (Exception e){
+                req.setAttribute("error","Unable to fetch topics");
+            }
+            // then send data to topic-list.jsp
+            req.getRequestDispatcher("pages/topic-list.jsp")
+                    .forward(req,resp);
+        }
+
         req.getRequestDispatcher("pages/add-topic.jsp").forward(req,resp);
     }
 
@@ -22,7 +39,7 @@ public class TopicServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        super.doPost(req, resp);
         String action = req.getParameter("action");
-        if(action.equals("add")){
+        if("add".equals(action)){
 
             String topicName = req.getParameter("topic-name");
             int userId = Integer.parseInt(req.getParameter("user-id"));

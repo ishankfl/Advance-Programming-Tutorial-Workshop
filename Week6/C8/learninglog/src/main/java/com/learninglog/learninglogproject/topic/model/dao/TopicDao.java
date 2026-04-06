@@ -1,8 +1,11 @@
 package com.learninglog.learninglogproject.topic.model.dao;
 
+import com.learninglog.learninglogproject.topic.model.Topic;
 import com.learninglog.learninglogproject.utils.DbConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TopicDao {
     public boolean insertTopic(
@@ -20,4 +23,24 @@ public class TopicDao {
             else {return  false;}
         }
     }
+    public static List<Topic> fetchTopics() throws SQLException{
+        String query="SELECT * FROM topic";
+        try(Connection conn = DbConnection.getConnection();
+            PreparedStatement st = conn.prepareStatement(query)
+        ){
+           ResultSet rs =  st.executeQuery();
+           List<Topic> topicList = new ArrayList<>();
+
+           while (rs.next()){
+               int id = rs.getInt(1);
+               String  name = rs.getString(2);
+               int userId = rs.getInt(3);
+               Timestamp createdDate = rs.getTimestamp(4);
+               Topic obj = new Topic(id,name,userId,createdDate);
+               topicList.add(obj);
+           }
+           return topicList;
+        }
+    }
+
 }
