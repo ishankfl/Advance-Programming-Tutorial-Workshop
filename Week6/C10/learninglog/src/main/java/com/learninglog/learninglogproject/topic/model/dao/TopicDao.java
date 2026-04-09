@@ -3,10 +3,8 @@ package com.learninglog.learninglogproject.topic.model.dao;
 import com.learninglog.learninglogproject.topic.model.Topic;
 import com.learninglog.learninglogproject.utils.DbConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TopicDao {
@@ -40,6 +38,19 @@ public class TopicDao {
         PreparedStatement st = conn.prepareStatement(query)
         ){
             ResultSet rs = st.executeQuery();
+            List<Topic> allTopicsList= new ArrayList<>();
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int userId = rs.getInt("user_id");
+                Timestamp createdAt = rs.getTimestamp("createdat");
+                Timestamp updatedDate = rs.getTimestamp("updatedat");
+
+                Topic obj = new Topic(id, name, userId, createdAt, updatedDate);
+
+                allTopicsList.add(obj);
+            }
+            return allTopicsList;
         }
     }
 }

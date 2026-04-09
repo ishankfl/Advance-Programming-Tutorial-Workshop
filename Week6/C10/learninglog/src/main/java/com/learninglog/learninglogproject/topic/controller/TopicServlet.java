@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.List;
 
 @WebServlet("/topic")
 public class TopicServlet extends HttpServlet {
@@ -19,8 +20,17 @@ public class TopicServlet extends HttpServlet {
             ServletException, IOException {
         String page = req.getParameter("page");
 
-        if(page.equals("list")){
-            
+//        if(page.equals("list"))
+        if("list".equals(page))
+        {
+            TopicDao dao = new TopicDao();
+            try{
+                List<Topic> topicList = dao.fetchTopics();
+                req.setAttribute("topics", topicList);
+
+            }catch (Exception e){
+                req.setAttribute("error",e.getMessage());
+            }
             req.getRequestDispatcher("pages/topic-list.jsp").forward(req,resp);
         }
         req.getRequestDispatcher("pages/add-topic.jsp").forward(req,resp);
