@@ -1,26 +1,35 @@
-<%@ page import="java.util.List" %>
-<%@ page import="com.learninglog.learninglogproject.topic.model.Topic" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
-    <title>Topics</title>
+    <title>Title</title>
 </head>
 <body>
-
-<h2>Topic List</h2>
-
+Topic List
 <table border="1">
     <tr>
-        <th>ID</th>
+        <th>Id</th>
         <th>Name</th>
-        <th>User ID</th>
-        <th>Created At</th>
-        <th>Updated At</th>
+        <th>UserId</th>
+        <th>CreatedDate</th>
+        <th>Action</th>
     </tr>
+    <tbody>
+    <c:forEach var="t" items="${topics}">
+        <tr>
 
-
+            <td>${t.getId()}</td>
+            <td>${t.getName()}</td>
+            <td>${t.getUserId()}</td>
+            <td>${t.getCreatedAt()}</td>
+            <td>
+                <a href="topic?action=edit&id=${t.getId()}">Edit</a> |
+                <a href="topic?action=delete&id=${t.getId()}">Delete</a>
+            </td>
+        </tr>
+    </c:forEach>
+    </tbody>
 </table>
-
 </body>
 </html>

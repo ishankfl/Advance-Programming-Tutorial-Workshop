@@ -17,7 +17,8 @@ public class TopicServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        if(action.equals("list")){
+
+        if("list".equals(action)){
             try {
                 List<Topic> topicList = TopicDao.fetchTopics();
                 req.setAttribute("topics",topicList);
