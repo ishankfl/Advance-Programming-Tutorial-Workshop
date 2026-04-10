@@ -18,6 +18,7 @@ public class TopicServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String page = req.getParameter("page"); // ?page=list
+
         if("list".equals(page)){
             //fetch data from topicDao
             try {
@@ -25,11 +26,16 @@ public class TopicServlet extends HttpServlet {
                 req.setAttribute("topics", topicList);
 
             }catch (Exception e){
-                req.setAttribute("error","Unable to fetch topics");
+                req.setAttribute("error","Unable to fetch topics"+e.getMessage());
             }
+
             // then send data to topic-list.jsp
             req.getRequestDispatcher("pages/topic-list.jsp")
                     .forward(req,resp);
+        }
+        if("edit".equals(page)){
+            int id = Integer.parseInt(req.getParameter("id"));
+
         }
 
         req.getRequestDispatcher("pages/add-topic.jsp").forward(req,resp);

@@ -42,5 +42,8 @@ public class TopicDao {
            return topicList;
         }
     }
+    public Topic fetchTopicById(int id){
+
+    }
 
 }
