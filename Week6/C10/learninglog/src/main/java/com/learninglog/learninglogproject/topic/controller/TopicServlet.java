@@ -33,6 +33,14 @@ public class TopicServlet extends HttpServlet {
             }
             req.getRequestDispatcher("pages/topic-list.jsp").forward(req,resp);
         }
+        else if("edit".equals(page)){
+
+            int id = Integer.parseInt(req.getParameter("id"));
+
+            req.getRequestDispatcher("pages/edit-topic.jsp").forward(req,resp);
+        }
+
+
         req.getRequestDispatcher("pages/add-topic.jsp").forward(req,resp);
     }
 
