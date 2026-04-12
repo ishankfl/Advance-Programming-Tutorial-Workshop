@@ -18,7 +18,6 @@ Topic List
     <tbody>
     <c:forEach var="obj" items="${topics}">
         <tr>
-
             <td>${obj.getId()}</td>
             <td>${obj.getname()}</td>
             <td>${obj.getUserId()}</td>

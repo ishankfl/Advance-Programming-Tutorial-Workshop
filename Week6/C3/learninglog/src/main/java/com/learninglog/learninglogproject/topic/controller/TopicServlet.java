@@ -28,6 +28,24 @@ public class TopicServlet extends HttpServlet {
             }
             req.getRequestDispatcher("pages/topic-list.jsp").forward(req,resp);
         }
+        if("edit".equals(action)){
+            TopicDao dao = new TopicDao();
+            try{
+                int id = Integer.parseInt(req.getParameter("id"));
+                Topic topicObjById = dao.fetchTopicById(id);
+                if(topicObjById == null){
+                    req.setAttribute("error","Unable to fetch topic by this id");
+                    req.getRequestDispatcher("pages/topic-list.jsp").forward(req,resp);
+
+                }else {
+                    req.setAttribute("topic",topicObjById);
+                    req.getRequestDispatcher("pages/edit-topic.jsp").forward(req,resp);
+                }
+            }catch (Exception e){
+
+            }
+        }
+
         req.getRequestDispatcher("pages/add-topic.jsp").forward(req,resp);
     }
 
