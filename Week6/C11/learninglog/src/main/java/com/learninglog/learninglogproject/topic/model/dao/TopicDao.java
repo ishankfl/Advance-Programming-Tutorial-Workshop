@@ -35,10 +35,10 @@ public class TopicDao {
 
             while (rs.next()){
 
-                int id = rs.getInt(1);
-                String name = rs.getString(2);
-                int userId = rs.getInt(3);
-                Timestamp createdDate = rs.getTimestamp(4);
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int userId = rs.getInt("user_id");
+                Timestamp createdDate = rs.getTimestamp("createdat");
 
                 Topic t = new Topic(createdDate,userId,name,id);
                 topicList.add(t);

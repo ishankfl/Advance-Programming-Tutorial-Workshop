@@ -14,7 +14,14 @@
     `<%
         User userObj = (User) session.getAttribute("user");
     %>
+
+    <% if(userObj == null ){
+        response.sendRedirect("/login");
+    }%>
+
 Name: <%=userObj.getName()%><br>
 Id: <%=userObj.getId()%>
+
+
 </body>
 </html>

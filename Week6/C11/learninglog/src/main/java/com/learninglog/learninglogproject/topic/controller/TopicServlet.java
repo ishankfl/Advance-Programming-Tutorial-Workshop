@@ -17,6 +17,7 @@ import java.util.List;
 public class TopicServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String page= req.getParameter("page");
 
         if("list".equals(page)){
@@ -24,7 +25,8 @@ public class TopicServlet extends HttpServlet {
                 List<Topic> topicList = TopicDao.fetchTopics();
                 req.setAttribute("topics", topicList);
             }catch (Exception e){
-                req.setAttribute("success","Something went wrong "+e.getMessage());
+
+                req.setAttribute("error","Something went wrong "+e.getMessage());
             }
             req.getRequestDispatcher("pages/topic-list.jsp").forward(req,resp);
         }
