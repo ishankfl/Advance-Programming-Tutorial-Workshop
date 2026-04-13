@@ -10,7 +10,7 @@
         width:100%;
     ">
   <p>
-    © 2026 Learning Log System | All Rights Reserved
+    ©2026 Learning Log System | All Rights Reserved
   </p>
 </footer>
 

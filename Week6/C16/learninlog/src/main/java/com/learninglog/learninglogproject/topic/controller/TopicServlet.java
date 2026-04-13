@@ -33,6 +33,20 @@ public class TopicServlet extends HttpServlet {
             req.getRequestDispatcher("pages/topic-list.jsp").forward(req,resp);
         }
 
+        if("edit".equals(action)){
+
+            try{
+                int id = Integer.parseInt(req.getParameter("id"));
+                Topic topicData=TopicDao.fetchTopicById(id);
+                req.setAttribute("topicData", topicData);
+
+            }catch (Exception e){
+                req.setAttribute("error", "Something wend wrong"+e.getMessage());
+            }
+            req.getRequestDispatcher("pages/edit-topic-form.jsp").forward(req,resp);
+        }
+
+
         req.getRequestDispatcher("pages/add-topic.jsp")
                 .forward(req,resp);
     }

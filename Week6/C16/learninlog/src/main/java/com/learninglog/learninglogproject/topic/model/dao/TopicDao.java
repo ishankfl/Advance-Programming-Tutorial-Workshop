@@ -48,4 +48,20 @@ public class TopicDao {
             return topicList;
         }
     }
+    public  static  Topic fetchTopicById(int id) throws SQLException{
+        String query = "SELECT * FROM topic WHERE id = ?";
+        try(Connection conn = DbConnection.getConnection();
+        PreparedStatement st = conn.prepareStatement(query)){
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                String  topicName = rs.getString("name");
+                int userId = rs.getInt("user_id");
+                Timestamp createdDate = rs.getTimestamp("createdat");
+                Topic topic = new Topic(id, topicName, userId, createdDate);
+                return  topic;
+            }
+            return null;
+        }
+    }
 }
