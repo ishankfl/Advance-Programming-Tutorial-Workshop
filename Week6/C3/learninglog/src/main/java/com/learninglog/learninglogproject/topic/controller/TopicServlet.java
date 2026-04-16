@@ -32,7 +32,9 @@ public class TopicServlet extends HttpServlet {
             TopicDao dao = new TopicDao();
             try{
                 int id = Integer.parseInt(req.getParameter("id"));
+
                 Topic topicObjById = dao.fetchTopicById(id);
+
                 if(topicObjById == null){
                     req.setAttribute("error","Unable to fetch topic by this id");
                     req.getRequestDispatcher("pages/topic-list.jsp").forward(req,resp);
@@ -50,10 +52,12 @@ public class TopicServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse rest){
+    protected void doPost(HttpServletRequest req, HttpServletResponse rest)
+    throws ServletException, IOException{
         String  action = req.getParameter("action");
 
-        if(action=="add"){
+        if("add".equals(action)){
+
             String topicName = req.getParameter("topic-name");
             int userId = Integer.parseInt(req.getParameter("userId"));
             Timestamp createdAt = new Timestamp(System.currentTimeMillis());
@@ -78,8 +82,23 @@ public class TopicServlet extends HttpServlet {
             catch (Exception e){
 
             }
-            // Call the topic dao
+        }
 
+        if("edit".equals(action)){
+            int id = Integer.parseInt(req.getParameter("id"));
+            String name = req.getParameter("name");
+            try{
+                TopicDao dao = new TopicDao();
+                boolean result = dao.updateTopic(id, name);
+                if(result){
+                    rest.sendRedirect("/topic?action=list");
+                }else {
+                    req.setAttribute("error","Something went wrong");
+                }
+            }catch (Exception e){
+                req.setAttribute("error",e.getMessage());
+            }
+            req.getRequestDispatcher("pages/edit-topic.jsp").forward(req,rest);
 
         }
     }
