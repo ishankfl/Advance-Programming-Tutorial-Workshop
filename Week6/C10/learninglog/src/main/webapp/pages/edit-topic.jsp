@@ -9,7 +9,8 @@
     <h1>Edit Topic Page</h1>
     <p style="color: red">${error}</p>
     <p style="color:green;">${success}</p>
-    <form>
+
+    <form method="post" action="edit-topic">
         <input type="text" name="id" value="${topic.id}" readonly>
         <input type="text" name="topic-name" value="${topic.name} ">
         <button>Update</button>

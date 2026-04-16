@@ -74,4 +74,21 @@ public class TopicDao {
 
         }
     }
+
+    public static boolean updateTopic(int id, String name) throws SQLException{
+        String query = "UPDATE topic SET name = ? WHERE id = ?";
+        try(Connection conn = DbConnection.getConnection();
+            PreparedStatement st = conn.prepareStatement(query)
+        ){
+            st.setString(1, name);
+            st.setInt(2, id);
+            int rows = st.executeUpdate();
+            if(rows>0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    }
 }
