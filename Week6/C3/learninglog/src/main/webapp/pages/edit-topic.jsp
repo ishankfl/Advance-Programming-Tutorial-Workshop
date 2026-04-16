@@ -6,7 +6,7 @@
     Edit Topic
 </h2>
     <form method="post" action="topic">
-        <input type="text" value="edit" name="action">
+        <input type="hidden" value="edit" name="action">
 
         <label>Id</label>
         <input type="number" value="${topic.id}" name="id" readonly><br>

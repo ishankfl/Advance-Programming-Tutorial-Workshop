@@ -92,6 +92,7 @@ public class TopicServlet extends HttpServlet {
                 boolean result = dao.updateTopic(id, name);
                 if(result){
                     rest.sendRedirect("/topic?action=list");
+                    return;
                 }else {
                     req.setAttribute("error","Something went wrong");
                 }
