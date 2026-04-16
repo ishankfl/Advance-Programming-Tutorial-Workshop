@@ -9,37 +9,35 @@ import java.util.List;
 
 public class TopicDao {
     public boolean insertTopic(Topic obj)
-        throws SQLException
-    {
-        String query=
+            throws SQLException {
+        String query =
                 "INSERT INTO topic(name, user_id, createdat, updatedat)"
-                +"?, ?, ?, ?";
-        try(Connection conn = DbConnection.getConnection();
-            PreparedStatement st = conn.prepareStatement(query)
-        ){
+                        + "?, ?, ?, ?";
+        try (Connection conn = DbConnection.getConnection();
+             PreparedStatement st = conn.prepareStatement(query)
+        ) {
             st.setString(1, obj.getName());
             st.setInt(2, obj.getUserId());
             st.setTimestamp(3, obj.getCreatedAt());
             st.setTimestamp(4, obj.getUpdatedAt());
 
             int rowsInserted = st.executeUpdate();
-            if(rowsInserted==0){
+            if (rowsInserted == 0) {
                 return false;
-            }else {
+            } else {
                 return true;
             }
         }
     }
 
-    public List<Topic> fetchTopics() throws SQLException
-    {
-        String query="SELECT * FROM topic";
-        try(Connection conn = DbConnection.getConnection();
-        PreparedStatement st = conn.prepareStatement(query)
-        ){
+    public List<Topic> fetchTopics() throws SQLException {
+        String query = "SELECT * FROM topic";
+        try (Connection conn = DbConnection.getConnection();
+             PreparedStatement st = conn.prepareStatement(query)
+        ) {
             ResultSet rs = st.executeQuery();
-            List<Topic> allTopicsList= new ArrayList<>();
-            while(rs.next()){
+            List<Topic> allTopicsList = new ArrayList<>();
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int userId = rs.getInt("user_id");
@@ -54,22 +52,26 @@ public class TopicDao {
         }
 
     }
-    public static Topic fetchTopicById(int id) throws SQLException{
-        String query="SELECT * FROM topic WHERE id = ?";
-        try(Connection conn = DbConnection.getConnection();
-            PreparedStatement st = conn.prepareStatement(query)
-        ){
+
+    public static Topic fetchTopicById(int id) throws SQLException {
+        String query = "SELECT * FROM topic WHERE id = ?";
+        try (Connection conn = DbConnection.getConnection();
+             PreparedStatement st = conn.prepareStatement(query)
+        ) {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
-            while (rs.next()){
+
+            while (rs.next()) {
                 String name = rs.getString("name");
                 Timestamp createdAt = rs.getTimestamp("createdat");
                 Timestamp updatedAt = rs.getTimestamp("updatedat");
                 int userId = rs.getInt("user_id");
-                Topic obj = new Topic(id, name, userId, createdAt,updatedAt);
+
+                Topic obj = new Topic(id, name, userId, createdAt, updatedAt);
                 return obj;
-        }
+            }
             return null;
 
+        }
     }
 }

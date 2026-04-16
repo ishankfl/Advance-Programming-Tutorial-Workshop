@@ -36,7 +36,19 @@ public class TopicServlet extends HttpServlet {
         else if("edit".equals(page)){
 
             int id = Integer.parseInt(req.getParameter("id"));
+            try{
+                Topic topicObj = TopicDao.fetchTopicById(id);
+                if(topicObj==null){
+                    req.setAttribute("error", "Unable to fetch topic with this id"+id);
+                }
+                else{
+                    req.setAttribute("success", "Successfully fetched the topic");
+                    req.setAttribute("topic",topicObj);
+                }
+            }catch (Exception e){
+                req.setAttribute("error","Something went wrong"+e.getMessage());
 
+            }
             req.getRequestDispatcher("pages/edit-topic.jsp").forward(req,resp);
         }
 
