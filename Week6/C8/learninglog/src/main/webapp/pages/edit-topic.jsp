@@ -14,10 +14,10 @@
 </head>
 <body>
 <h2>Edit Topic</h2>
-    <form method="post" action="topic">
-        <input type="text" value="edit" name="action">
-        <input type="text" value="${topic.getId()}" name="id">
-        <input type="text" value="${topic.getName()}" name="topic-name">
+    <form method="post" action="edit-topic">
+       Id: <input type="text" value="${topic.id}" name="id">
+        <br>
+        <input type="text" value="${topic.name}" name="topic-name">
         <button>Submit Button</button>
 
     </form>

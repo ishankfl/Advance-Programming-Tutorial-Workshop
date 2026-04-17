@@ -49,7 +49,6 @@ public class TopicServlet extends HttpServlet {
                 req.setAttribute("error", "Something went wrong"+e.getMessage());
             }
             req.getRequestDispatcher("pages/edit-topic.jsp").forward(req,resp);
-
         }
 
         req.getRequestDispatcher("pages/add-topic.jsp").forward(req,resp);
