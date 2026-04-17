@@ -19,9 +19,16 @@ public class EditTopicServlet extends HttpServlet {
         String  updatedName = req.getParameter("name");
         try{
             boolean result = TopicDao.updateTopic(id, updatedName);
-
+            if(result){
+                resp.sendRedirect("/topic?page=list");
+                return;
+            }
+            else {
+                req.setAttribute("error","Unable to update the topic");
+            }
         }catch (Exception e){
-
+            req.setAttribute("error","Something went wrong"+e.getMessage());
         }
+        req.getRequestDispatcher("pages/edit-topic-form.jsp").forward(req,resp);
     }
 }

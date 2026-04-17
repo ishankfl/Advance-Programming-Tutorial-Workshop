@@ -37,10 +37,10 @@ public class TopicDao {
             List<Topic> topicList = new ArrayList<>();
 
             while (rs.next()){
-                int id = rs.getInt(1);
-                String topicName = rs.getString(2);
-                int userId = rs.getInt(3);
-                Timestamp createdAt = rs.getTimestamp(4);
+                int id = rs.getInt("id");
+                String topicName = rs.getString("name");
+                int userId = rs.getInt("user_id");
+                Timestamp createdAt = rs.getTimestamp("createdat");
 
                 Topic t = new Topic(id,topicName,userId,createdAt);
                 topicList.add(t);
@@ -62,6 +62,24 @@ public class TopicDao {
                 return  topic;
             }
             return null;
+        }
+    }
+
+    public  static boolean updateTopic(int id, String name)
+        throws SQLException
+    {
+        String query = "UPDATE topic SET name = ? WHERE id = ?";
+        try(Connection conn = DbConnection.getConnection();
+        PreparedStatement st = conn.prepareStatement(query)){
+            st.setString(1, name);
+            st.setInt(2, id);
+
+            int effectedRows = st.executeUpdate();
+            if(effectedRows>0){
+                return true;
+            }else {
+                return false;
+            }
         }
     }
 }
