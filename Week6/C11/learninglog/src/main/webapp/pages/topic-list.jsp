@@ -36,7 +36,7 @@
             <td>${t.getUserId()}</td>
             <td>${t.getCreatedAt()}</td>
             <td>
-                <a href="topic?action=edit&id=${t.getId()}">Edit</a> |
+                <a href="edit-topic?id=${t.getId()}">Edit</a> |
                 <a href="topic?action=delete&id=${t.getId()}">Delete</a>
             </td>
         </tr>
