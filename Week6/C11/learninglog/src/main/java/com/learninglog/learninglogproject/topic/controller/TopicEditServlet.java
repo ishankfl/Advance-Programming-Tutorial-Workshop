@@ -41,9 +41,19 @@ public class TopicEditServlet extends HttpServlet {
 
         try{
             boolean result = TopicDao.updateTopic(id,updatedName);
+            if(result){
+                resp.sendRedirect("/topic?page=list");
+                return;
+            }
+            else{
+                //if result is false
+                req.setAttribute("error","Unable to update topic");
+            }
         }catch (Exception e){
+            req.setAttribute("error","Something went wrong"+e.getMessage());
 
         }
+        req.getRequestDispatcher("pages/edit-topic.jsp").forward(req,resp);
 
     }
 }
