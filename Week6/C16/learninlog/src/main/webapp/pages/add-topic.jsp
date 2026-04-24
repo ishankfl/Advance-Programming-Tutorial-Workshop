@@ -10,6 +10,8 @@
 <head>
     <title>Title</title>
 </head>
+<p style="color: red">${error}</p>
+<p style="color: green">${success}</p>
 <%
     User userObj =(User) session.getAttribute("user");
     int id = 0;

@@ -5,7 +5,8 @@
 <jsp:include page="/components/header.jsp"/>
 
 TopicList
-
+<p style="color: red">${error}</p>
+<p style="color: green">${success}</p>
 <table border="1">
   <tr>
     <th>Id</th>

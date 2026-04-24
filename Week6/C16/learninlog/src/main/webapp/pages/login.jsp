@@ -11,6 +11,8 @@
     <title>Title</title>
 </head>
 <body>
+<p style="color: red">${error}</p>
+<p style="color: green">${success}</p>
 <form method="post" action="login">
     <label>Email</label>
     <br>

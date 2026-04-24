@@ -12,8 +12,8 @@
     <title>Image Upload Page</title>
 </head>
 <body>
-${error}
-${success}
+<p style="color: red">${error}</p>
+<p style="color: green">${success}</p>
 <h2>Upload a new image with name</h2>
     <form method="post" action="image" enctype="multipart/form-data">
         Name: <input type="text" name="name">

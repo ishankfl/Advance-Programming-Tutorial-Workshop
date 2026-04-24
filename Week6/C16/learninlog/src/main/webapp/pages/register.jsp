@@ -16,7 +16,8 @@
 
 <!-- Page heading -->
 Register Page
-
+<p style="color: red">${error}</p>
+<p style="color: green">${success}</p>
 <div class="main">
 
     <%
