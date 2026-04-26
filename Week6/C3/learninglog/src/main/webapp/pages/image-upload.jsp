@@ -25,5 +25,7 @@
         <button>Add</button>
 
     </form>
+
+<img src="/images/finger.jpg.png" alt="Image not found">
 </body>
 </html>

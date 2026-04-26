@@ -26,7 +26,11 @@ public class AuthFilter implements Filter {
         boolean isAuthPage = uri.contains("login") || uri.contains("register");
         // false
 
-        if (loggedIn || isAuthPage ) {
+        boolean isStaticFiles = uri.contains("/static/");
+        boolean isUploadedImage = uri.contains("/images/");
+
+
+        if (loggedIn || isAuthPage || isStaticFiles || isUploadedImage ) {
             chain.doFilter(request, response);
 
         } else {

@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Login Page</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/styles.css">
 </head>
 <body>
 
@@ -23,5 +24,6 @@
 
 <a href="register">Don't have any account? Register here</a>
 
+<img src="/images/finger.jpg.png" alt="image not found" >
 </body>
 </html>
